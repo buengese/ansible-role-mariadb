@@ -36,7 +36,6 @@ mysql_initialize_command: "{{ _mysql_initialize_command[ansible_os_family] }}"
 
 _mysql_service:
   default: "{{ mysql_name }}"
-  RedHat: &redhat_service "{{ mysql_name }}d"
 
 mysql_service: "{{ _mysql_service[ansible_os_family] | default(_mysql_service['default'] ) }}"
 
