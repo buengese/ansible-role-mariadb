@@ -1,5 +1,14 @@
 ---
-- name: configure mysql server
+- name: Get MySQL version.
+  ansible.builtin.command: 'mysql --version'
+  register: mysql_cli_version
+  changed_when: false
+  check_mode: false
+
+- ansible.builtin.debug:
+    var: mysql_cli_version
+
+- name: Configure MySQL server.
   become: true
   community.general.ini_file:
     dest: "{{ mysql_configuration_destination }}/{{ mysql_name }}-server.cnf"
@@ -13,7 +22,7 @@
   notify:
     - restart mysql server
 
-- name: configure mysql client
+- name: Configure MySQL client.
   become: true
   community.general.ini_file:
     dest: "{{ mysql_configuration_destination }}/{{ mysql_name }}-client.cnf"
@@ -22,15 +31,7 @@
     value: "{{ mysql_socket }}"
     mode: "0644"
 
-- name: initialize mysql
-  become: true
-  ansible.builtin.command:
-    cmd: "{{ mysql_initialize_command }}"
-    creates: /var/lib/mysql/mysql
-  when:
-    - ansible_distribution in [ "Alpine", "Archlinux" ]
-
-- name: start and enable mysql
+- name: Start and enable MySQL
   become: true
   ansible.builtin.service:
     name: "{{ mysql_service }}"
@@ -40,10 +41,3 @@
 - name: flush handlers
   become: true
   ansible.builtin.meta: flush_handlers
-
-- name: place my.cnf
-  become: true
-  ansible.builtin.template:
-    src: my.cnf.j2
-    dest: /root/.my.cnf
-    mode: 0640

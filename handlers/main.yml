@@ -13,14 +13,3 @@
   when:
     - not ansible_check_mode | bool
     - ansible_service_mgr == "systemd"
-
-
-- name: set root password
-  community.mysql.mysql_user:
-    login_unix_socket: "{{ mysql_socket }}"
-    login_user: root
-    login_password: ""
-    name: root
-    password: "{{ mysql_root_password }}"
-    state: present
-  no_log: true

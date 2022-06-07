@@ -14,6 +14,11 @@
   ansible.builtin.package:
     name: "{{ mysql_packages }}"
     state: present
-  notify:
-    - set root password
-    - systemctl daemon-reexec
+  register: deb_mysql_install_packages
+
+- name: Stop MySQL if started automatically
+  become: true
+  ansible.builtin.service:
+    name: "{{ mysql_service }}"
+    state: stopped
+  when: deb_mysql_install_packages.changed

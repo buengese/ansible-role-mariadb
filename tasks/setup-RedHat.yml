@@ -1,0 +1,7 @@
+---
+- name: Install MySQL package
+  become: true
+  ansible.builtin.package:
+    name: "{{ mysql_packages }}"
+    state: present
+  register: rh_mysql_install_packages
