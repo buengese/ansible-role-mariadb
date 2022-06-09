@@ -3,7 +3,7 @@
   hosts: all
   become: true
   roles:
-    - ansible-role-mysql
+    - ansible-role-mariadb
   vars:
     mysql_root_password: "test_pw_do_not_use"
   post_tasks:
