@@ -28,7 +28,7 @@
     mysql -u root -NBe
     "ALTER USER 'root'@'{{ item }}'
     IDENTIFIED BY '{{ mysql_root_password }}'; FLUSH PRIVILEGES;"
-  with_items: "{{ mysql_root_hosts.stdout_lines|default([]) }}"
+  with_items: "{{ mysql_root_hosts.stdout_lines | default([]) }}"
   when: >
     mysql_install_packages | bool
 
@@ -43,7 +43,7 @@
     name: ""
     host: "{{ item }}"
     state: absent
-  with_items: "{{ mysql_anonymous_hosts.stdout_lines|default([]) }}"
+  with_items: "{{ mysql_anonymous_hosts.stdout_lines | default([]) }}"
 
 - name: Remove MySQL test database.
   community.mysql.mysql_db: "name='test' state=absent"
