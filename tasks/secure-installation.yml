@@ -42,8 +42,14 @@
   community.mysql.mysql_user:
     name: ""
     host: "{{ item }}"
+    login_port: '{{ mysql_port }}'
+    login_host: '127.0.0.1'
     state: absent
   with_items: "{{ mysql_anonymous_hosts.stdout_lines | default([]) }}"
 
 - name: Remove MySQL test database.
-  community.mysql.mysql_db: "name='test' state=absent"
+  community.mysql.mysql_db:
+    name: 'test'
+    state: absent
+    login_port: '{{ mysql_port }}'
+    login_host: '127.0.0.1'
