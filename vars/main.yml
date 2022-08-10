@@ -8,7 +8,7 @@ _mysql_packages:
     - "{{ mysql_name }}-server"
     - "{{ mysql_name }}-devel"
     - python2-mysql
-  ArchLinux:
+  Archlinux:
     - "{{ mysql_name }}"
     - python-pymysql
   Alpine:
