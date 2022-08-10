@@ -4,6 +4,9 @@
 # The address mysql should bind to.
 mysql_bind_address: "127.0.0.1"
 
+# The port mysql listens on.
+mysql_port: 3306
+
 # The buffer pool size.
 mysql_innodb_buffer_pool_size: 1G
 

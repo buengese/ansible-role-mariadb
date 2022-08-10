@@ -59,6 +59,9 @@ mysql_configuration_options:
   - section: mysqld
     option: innodb_io_capacity
     value: "{{ mysql_innodb_io_capacity }}"
+  - option: port
+    section: mysqld
+    value: "{{ mysql_port }}"
 
 _mysql_configuration_destination:
   default: /etc/mysql/mariadb.conf.d
