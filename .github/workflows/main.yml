@@ -17,7 +17,6 @@ jobs:
       matrix:
         distro:
           - debian11
-          - debian10
           - ubuntu2204
           - fedora37
 
