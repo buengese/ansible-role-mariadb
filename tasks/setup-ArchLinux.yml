@@ -1,3 +1,4 @@
+# code: language=ansible
 ---
 - name: Install MySQL package
   become: true
@@ -6,7 +7,7 @@
     state: present
   register: arch_mysql_install_packages
 
-- name: initialize mysql
+- name: Initialize mysql
   become: true
   ansible.builtin.command:
     cmd: "{{ mysql_initialize_command }}"

@@ -1,5 +1,6 @@
+# code: language=ansible
 ---
-- name: create users
+- name: Create users
   community.mysql.mysql_user:
     name: "{{ item.name }}"
     state: present

@@ -1,12 +1,13 @@
+# code: language=ansible
 ---
 # handlers file for mysql
 
-- name: systemctl daemon-reexec
+- name: Systemctl reload
   ansible.builtin.systemd:
     daemon_reload: true
   when: ansible_service_mgr == "systemd"
 
-- name: restart mysql server
+- name: Restart MySQL server
   ansible.builtin.service:
     name: "{{ mysql_service }}"
     state: restarted

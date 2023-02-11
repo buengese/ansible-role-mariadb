@@ -1,5 +1,6 @@
+# code: language=ansible
 ---
-- name: create databases
+- name: Create databases
   community.mysql.mysql_db:
     name: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"

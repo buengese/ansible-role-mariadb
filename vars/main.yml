@@ -1,50 +1,8 @@
+# code: language=ansible
 ---
-# vars file for mysql
-
 mysql_name: "mariadb"
 
-_mysql_packages:
-  default:
-    - "{{ mysql_name }}-server"
-    - "{{ mysql_name }}-devel"
-    - python2-mysql
-  Archlinux:
-    - "{{ mysql_name }}"
-    - python-pymysql
-  Alpine:
-    - "{{ mysql_name }}"
-    - py-mysqldb
-  Debian:
-    - "{{ mysql_name }}-server"
-    - python3-mysqldb
-  Suse:
-    - libmysqlclient-devel
-    - "{{ mysql_name }}"
-    - python3-mysqlclient
-  RedHat:
-    - "{{ mysql_name }}-server"
-    - "{{ mysql_name }}-devel"
-    - python3-PyMySQL
-
-mysql_packages: "{{ _mysql_packages[ansible_os_family] | default(_mysql_packages['default'] ) }}"
-
-_mysql_initialize_command:
-  Alpine: /etc/init.d/mariadb setup
-  Archlinux: mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
-
-mysql_initialize_command: "{{ _mysql_initialize_command[ansible_os_family] }}"
-
-_mysql_service:
-  default: "{{ mysql_name }}"
-
-mysql_service: "{{ _mysql_service[ansible_os_family] | default(_mysql_service['default'] ) }}"
-
-_mysql_socket:
-  default: /var/run/mysql/mysql.sock
-  Debian: /var/run/mysqld/mysqld.sock
-  RedHat: /var/lib/mysql/mysql.sock
-
-mysql_socket: "{{ _mysql_socket[ansible_os_family] | default(_mysql_socket['default'] ) }}"
+mysql_service: "{{ mysql_name }}"
 
 mysql_configuration_options:
   - option: bind-address
@@ -63,9 +21,12 @@ mysql_configuration_options:
     section: mysqld
     value: "{{ mysql_port }}"
 
-_mysql_configuration_destination:
-  default: /etc/mysql/mariadb.conf.d
-  RedHat: /etc/my.cnf.d
-  Archlinux: /etc/my.cnf.d
-
-mysql_configuration_destination: "{{ _mysql_configuration_destination[ansible_os_family] | default(_mysql_configuration_destination['default'] ) }}"
+mysql_variables:
+  files:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+  paths:
+    - 'vars'

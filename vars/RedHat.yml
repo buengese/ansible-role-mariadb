@@ -1,0 +1,10 @@
+# code: language=ansible
+---
+mysql_packages:
+  - mariadb-server
+  - mariadb-devel
+  - python3-PyMySQL
+
+mysql_socket: /var/lib/mysql/mysql.sock
+
+mysql_configuration_destination: /etc/my.cnf.d

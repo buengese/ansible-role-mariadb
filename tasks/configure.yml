@@ -1,3 +1,4 @@
+# code: language=ansible
 ---
 - name: Get MySQL version.
   ansible.builtin.command: 'mysql --version'
@@ -20,7 +21,7 @@
   loop_control:
     label: "{{ item.option }}"
   notify:
-    - restart mysql server
+    - Restart MySQL server
 
 - name: Configure MySQL client.
   become: true
@@ -37,7 +38,3 @@
     name: "{{ mysql_service }}"
     state: started
     enabled: true
-
-- name: flush handlers
-  become: true
-  ansible.builtin.meta: flush_handlers

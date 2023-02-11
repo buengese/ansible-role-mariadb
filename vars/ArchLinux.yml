@@ -1,0 +1,11 @@
+# code: language=ansible
+---
+mysql_packages:
+  - mariadb
+  - python-pymysql
+
+mysql_initialize_command: mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+
+mysql_socket: /var/run/mysqld/mysqld.sock
+
+mysql_configuration_destination: /etc/my.cnf.d

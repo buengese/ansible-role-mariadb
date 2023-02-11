@@ -1,5 +1,6 @@
+# code: language=ansible
 ---
-- name: place my.cnf
+- name: Place my.cnf
   become: true
   ansible.builtin.template:
     src: my.cnf.j2
