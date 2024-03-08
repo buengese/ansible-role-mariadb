@@ -7,12 +7,3 @@
   vars:
     mysql_root_password: "test_pw_do_not_use"
     mysql_port: 3316
-  post_tasks:
-    - name: Make sure we can connect to MySQL via Unix socket.
-      command: "mysql -u root -ptest_pw_do_not_use -e 'show databases;'"
-      changed_when: false
-
-    - name: Make sure we can connect to MySQL via TCP.
-      command: "mysql -u root -ptest_pw_do_not_use -h 127.0.0.1 -P 3316 -e 'show databases;'"
-      changed_when: false
-

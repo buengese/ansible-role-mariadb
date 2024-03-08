@@ -1,0 +1,26 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+
+    - name: Check if gitea service is running
+      ansible.builtin.fail:
+        msg: "mariadb service is not running"
+      when: "'mariadb.service' not in ansible_facts.services or ansible_facts.services['mariadb.service'].state != 'running'"
+      
+    - name: Make sure we can connect to MySQL via Unix socket.
+      command: "mysql -u root -ptest_pw_do_not_use -e 'show databases;'"
+      changed_when: false
+
+    - name: Make sure we can connect to MySQL via TCP.
+      command: "mysql -u root -ptest_pw_do_not_use -h 127.0.0.1 -P 3316 -e 'show databases;'"
+      changed_when: false
