@@ -35,9 +35,11 @@ See [defaults/main.yml](defaults/main.yml) for a list of optional variables.
 Supported OS
 ------------
 - Ubuntu 20.04
+- Ubuntu 22.04
 - Debian 10
 - Debian 11
-- Fedora 35
+- Debian 12
+- Fedora 40
 - ArchLinux
 
 
