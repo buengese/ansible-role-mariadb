@@ -1,5 +1,12 @@
 # code: language=ansible
 ---
+- name: Enable Rocky Linux devel repository
+  become: true
+  community.general.dnf_config_manager:
+    name: devel
+    state: enabled
+  when: ansible_distribution ==  'Rocky'
+
 - name: Install MySQL package
   become: true
   ansible.builtin.package:
